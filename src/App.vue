@@ -7,7 +7,7 @@
    
    <div class="place_name">{{weather.name}}</div>
    <div class="date">{{weather.date}}</div>
-   <div class="temperature">{{weather.temp}}°F</div>
+   <div class="temperature">{{weather.temp}}°C</div>
    <div class="climate">{{weather.climate}}</div>
 
   
@@ -46,8 +46,10 @@ export default {
         console.log(res.data);
       
       this.weather.name=res.data.name;
-      this.weather.temp=res.data.main.temp;
-      this.weather.climate=res.data.weather[0].main;
+      var cel=((res.data.main.temp)-273.15);
+      this.weather.temp=Math.round(cel);
+      //  this.weather.temp=res.data.main.temp;
+       this.weather.climate=res.data.weather[0].main;
       var d=((res.data.dt)*1000);
        this.weather.date=new Date(d);     
       });
@@ -68,8 +70,11 @@ export default {
   box-sizing: border-box;
 }
 body{
+  
 background-image:url('./assets/bg.jpg');
-background-repeat: no-repeat;
+
+background-repeat:repeat-y;
+background-size: cover;
 
 }
 input#search-bar {
